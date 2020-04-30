@@ -12,11 +12,11 @@ public class PurchaseTool {
 
         if(coin.getToolType() == Tool.ITEM.COIN){
             if(coin.getToolStrength() == Tool.STRENGTH.SILVER){
-                return game.gameToolBox.hasTool(tool.getToolType(), tool.getToolStrength());
+                return game.getGameToolBox().hasTool(tool.getToolType(), tool.getToolStrength());
             }
 
             if(coin.getToolStrength() == Tool.STRENGTH.GOLD){
-                return game.gameToolBox.hasTool(tool.getToolType(), tool.getToolStrength()) || game.getOpponentTeam().getToolBox().hasTool(tool.getToolType(), tool.getToolStrength());
+                return game.getGameToolBox().hasTool(tool.getToolType(), tool.getToolStrength()) || game.getOpponentTeam().getToolBox().hasTool(tool.getToolType(), tool.getToolStrength());
             }
         }
         // Return false otherwise
@@ -34,6 +34,28 @@ public class PurchaseTool {
     }
 
     public void performToolPurchase(Tool coin, Tool tool){
-        // FIXME
+        // Check if tool purchase is valid
+        if(validToolPurchase(coin, tool)) {
+            // Remove coin being used from current teams toolbox
+            game.getCurrentTeam().getToolBox().removeTool(coin.getToolType(),coin.getToolStrength());
+
+            // Take from game box if coin is silver
+            if(coin.getToolStrength() == Tool.STRENGTH.SILVER){
+                game.getGameToolBox().removeTool(tool.getToolType(),tool.getToolStrength());
+                game.getCurrentTeam().getToolBox().addTool(tool);
+
+                // Take from opponent if possible or game box otherwise
+            }else if(coin.getToolStrength() == Tool.STRENGTH.GOLD){
+                if(game.getOpponentTeam().getToolBox().hasTool(tool.getToolType(), tool.getToolStrength())){
+                    game.getOpponentTeam().getToolBox().removeTool(tool.getToolType(),tool.getToolStrength());
+                    game.getCurrentTeam().getToolBox().addTool(tool);
+                }else{
+                    game.getGameToolBox().removeTool(tool.getToolType(),tool.getToolStrength());
+                    game.getCurrentTeam().getToolBox().addTool(tool);
+                }
+            }
+            // Change turn
+            game.changeTurn();
+        }
     }
 }
