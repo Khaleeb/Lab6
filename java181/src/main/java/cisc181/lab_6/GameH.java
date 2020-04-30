@@ -36,6 +36,10 @@ public abstract class GameH {
         }
     }
 
+    public ToolBox getGameToolBox() {
+        return gameToolBox;
+    }
+
     public Board getBoard() {
         return board;
     }
@@ -69,5 +73,35 @@ public abstract class GameH {
                 .append("\n" + getBoard().toString())
                 .append("\nIt is Team " + getCurrentTeam().getTeamName() + "'s turn\n");
         return retString.toString();
+    }
+
+    public String strHiddenBoard() {
+        Piece curPiece;
+        StringBuilder boardString = new StringBuilder();
+        boardString.append("Col : ");
+        for (int col = 0; col < getBoard().getSpaces()[0].length; col++) {
+            boardString.append(col + " ");
+        }
+        boardString.append("\n");
+        for (int row = 0; row < getBoard().getSpaces().length; row++) {
+            boardString.append("Row : " + row + " ");
+            for (int col = 0; col < getBoard().getSpaces()[row].length; col++) {
+                curPiece = getBoard().getSpaces()[row][col].getPiece();
+                if (curPiece == null) {
+                    boardString.append("------" + " ");
+                }
+                // if the Piece is hidden and it belongs to the other
+                // team - don&#39;t show it on the board
+                else if (curPiece.isHidden() &&
+                getOpponentTeam().getTeamPieces().contains(curPiece)){
+                    boardString.append("------" + " ");
+                }
+else {
+                    boardString.append(getBoard().getSpaces()[row][col].toString() + " ");
+                }
+            }
+            boardString.append("\n");
+        }
+        return boardString.toString();
     }
 }
