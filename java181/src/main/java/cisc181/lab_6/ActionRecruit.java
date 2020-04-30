@@ -48,9 +48,20 @@ public class ActionRecruit extends Action {
     }
 
      public void performAction() {
+        recruit();
 
-        
-         // FIX ME
+        // Get piece
+        Piece pieceToRecruit = game.getBoard().getSpaces()[toSpaceRow][toSpaceCol].getPiece();
+
+        // Switch piece from opponent to current team
+        game.getOpponentTeam().getTeamPieces().remove(pieceToRecruit);
+        game.getCurrentTeam().getTeamPieces().add(pieceToRecruit);
+
+        // Change color to current team
+        pieceToRecruit.setColor(game.getCurrentTeam().getTeamColor());
+
+        // Change turn
+        game.changeTurn();
 
     }
 }
