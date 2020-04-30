@@ -3,6 +3,7 @@ import java.util.*;
 
 public class PlayGameH {
 
+    static Scanner sc = new Scanner(System.in);
     private Game181H game181H;
 
     public PlayGameH (Game181H game181H) {
@@ -10,21 +11,20 @@ public class PlayGameH {
     }
 
     private char getValidActionType() {
-        Scanner sc = new Scanner(System.in);
         boolean acceptableInput = false;
         System.out.println(game181H.getCurrentTeam());
         System.out.println("Type a character and hit enter to perform an action");
         System.out.println(" Type 'M' to move");
         System.out.println(" Type 'R' to recruit");
         System.out.println(" Type 'A' to attack");
-        System.out.println(" Type 'T' to attack");
-        char userInput = sc.next().charAt(0);
+        System.out.println(" Type 'T' to use a Tool");
+        System.out.print("ENTER: ");
+        char userInput = 'f';
         while (acceptableInput==false){
             if (userInput == 'A' || userInput == 'R' || userInput == 'M' || userInput == 'T'){
                 acceptableInput = true;
             }
             else {
-                userInput = sc.next().charAt(0);
                 System.out.println("Not valid input");
             }
         }
@@ -34,7 +34,8 @@ public class PlayGameH {
         boolean acceptable = false;
         while (acceptable == false){
             char action = getValidActionType();
-            Scanner sc = new Scanner(System.in);
+
+            if(action == 'M' || action == 'R' || action == 'A'){
             System.out.println("Enter row and column of current piece ");
             int fromRow = sc.nextInt();
             int fromCol = sc.nextInt();
@@ -66,7 +67,10 @@ public class PlayGameH {
                 } else {
                     System.out.println("Action not valid");
                 }
+            }
             } else if (action == 'T') {
+
+
                 
             }
             else {
