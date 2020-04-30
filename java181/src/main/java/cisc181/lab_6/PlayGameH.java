@@ -2,13 +2,13 @@ package cisc181.lab_6;
 import java.util.*;
 
 public class PlayGameH {
-
+    //member field for this class
     private Game181H game181H;
-
+    //constructor that sets the value
     public PlayGameH (Game181H game181H) {
         this.game181H = game181H;
     }
-
+    //method which returns the description of each action
     private char getValidActionType() {
         Scanner sc = new Scanner(System.in);
         boolean acceptableInput = false;
@@ -30,6 +30,7 @@ public class PlayGameH {
         }
         return userInput;
     }
+    //Method which implements an algorithm for an action type
     private void nextPlayersAction() {
         boolean acceptable = false;
         while (acceptable == false){
@@ -67,7 +68,7 @@ public class PlayGameH {
                     System.out.println("Action not valid");
                 }
             } else if (action == 'T') {
-                
+
             }
             else {
                 System.out.println("Action not valid");
@@ -75,7 +76,7 @@ public class PlayGameH {
         }
 
     }
-
+    //method which implements algorithm
     public void playOurGame() {
         nextPlayersAction();
         System.out.println(game181H);
@@ -85,7 +86,7 @@ public class PlayGameH {
         }
         System.out.println(game181H.getWinner());
     }
-
+    //main method
     public static void main(String[] args) {
 
         // Create 3 pieces for Team A
