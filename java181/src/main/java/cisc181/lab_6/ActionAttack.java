@@ -53,7 +53,19 @@ public class ActionAttack extends Action {
 
 
     public void performAction() {
-
+        if(validAction()){
+            attack();
+            // Remove piece at attacked position
+            game.board.getSpaces()[toSpaceRow][toSpaceCol].removePiece();
+            // Set new position to have attacking piece
+            game.board.getSpaces()[toSpaceRow][toSpaceCol].setPiece(game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece());
+            // Remove piece from old position
+            game.board.getSpaces()[fromSpaceRow][fromSpaceCol].removePiece();
+            // Change turn
+            game.changeTurn();
+        }else{
+            System.out.println("Invalid Attack");
+        }
       // FIX ME
     }
 }

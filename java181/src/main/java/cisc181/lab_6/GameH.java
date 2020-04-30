@@ -7,7 +7,7 @@ public abstract class GameH {
     protected TeamH teamA;
     protected TeamH teamB;
     protected ToolBox gameToolBox;
-    protected String turn; // holds the name ofthe tam that has the next turn
+    protected String turn; // holds the name ofthe team that has the next turn
 
     public GameH(int rows, int cols,TeamH teamA, TeamH teamB){
         this.teamA = teamA;
