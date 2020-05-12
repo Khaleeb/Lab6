@@ -15,19 +15,9 @@ public class PieceDepartmentDean extends PieceCanBunker implements Attacker, Bun
         System.out.println("You will not escape my wrath!");
     }
 
-    public boolean validPath(int firstSpaceRow, int firstSpaceCol, int secondSpaceRow, int secondSpaceCol) {
+    public boolean validPath(int rowI, int colI, int row, int col) {
         boolean valid;
-        // compute the difference between from row and to row
-        int diffRows = Math.abs(firstSpaceRow - secondSpaceRow);
-        // compute the difference between from columns and to column
-        int diffCols = Math.abs(firstSpaceCol - secondSpaceCol);
-        if (diffRows == 0 && diffCols == 1){
-            valid = true;
-        }
-        // Or it can move one space up or down the board
-        else if (diffRows == 1 && diffCols == 0){
-            valid = true;
-        }
+
 
     }
 
