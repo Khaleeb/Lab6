@@ -14,9 +14,7 @@ public abstract class PieceCanBunker extends Piece{
         this(symbol,"");
     }
 
-    public boolean isBunkered() {
-        return isBunkered;
-    }
+    public boolean isBunkered() { return isBunkered; }
 
     public void toggleBunker(){
         this.isBunkered = !this.isBunkered;
