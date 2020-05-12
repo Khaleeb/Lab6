@@ -60,8 +60,7 @@ public class ActionRecruit extends Action {
         // Change color to current team
         pieceToRecruit.setColor(game.getCurrentTeam().getTeamColor());
 
-        // Change turn
-        game.changeTurn();
+        // Change turn REMOVED FOR NEW RULE
 
     }
 }
