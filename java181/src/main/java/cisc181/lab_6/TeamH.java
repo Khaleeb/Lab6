@@ -21,6 +21,14 @@ public class TeamH {
         return teamPieces;
     }
     public ToolBox getToolBox(){return this.toolBox;}
+    public boolean containsDean(){
+        for (Piece piece : this.getTeamPieces()) {
+            if (piece instanceof PieceHeadDean){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void removePieceFromTeam(Piece piece){
         teamPieces.remove(piece);
