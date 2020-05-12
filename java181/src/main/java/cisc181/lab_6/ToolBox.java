@@ -24,6 +24,8 @@ public class ToolBox {
         toolSet.add(  new Tool(Tool.ITEM.COIN,Tool.STRENGTH.GOLD));
         toolSet.add(  new Tool(Tool.ITEM.COIN,Tool.STRENGTH.SILVER));
         toolSet.add(  new Tool(Tool.ITEM.COIN,Tool.STRENGTH.SILVER));
+        toolSet.add(  new Tool(Tool.ITEM.HEN_EGG, Tool.STRENGTH.GOLD));
+        toolSet.add(  new Tool(Tool.ITEM.HEN_EGG, Tool.STRENGTH.SILVER));
     }
 
     public boolean hasTool(Tool.ITEM item, Tool.STRENGTH strength) {
