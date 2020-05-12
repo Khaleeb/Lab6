@@ -2,7 +2,7 @@ package cisc181.lab_6;
 
 public class Tool {
 
-    public enum ITEM {CLOAK, GLASSES, COIN}
+    public enum ITEM {CLOAK, GLASSES, COIN, HEN_EGG}
     public enum STRENGTH {GOLD, SILVER}
 
     private ITEM toolType;
@@ -24,6 +24,11 @@ public class Tool {
     public String getDescription() {
         String toolString = "";
         switch (this.toolType) {
+            case HEN_EGG:
+                toolString = toolStrength.equals(STRENGTH.GOLD) ?
+                        "Spawn two blue hens for your team randomly" :
+                        "Spawn one blue hen for your team randomly";
+                break;
             case GLASSES:
                 toolString = toolStrength.equals(STRENGTH.GOLD) ?
                         "Unhide all of the other team's pieces" :

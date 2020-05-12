@@ -45,10 +45,21 @@ public class UseTool {
         }
     }
 
+    private void spawnRandomHen(){
+        PieceBlueHen newPiece = new PieceBlueHen("Eggbert",game.getCurrentTeam().getTeamColor(),0,0); // Create new blue hen on current team
+        BoardSpace toSpace = game.getBoard().findRandomEmptySpace(); // Find space to put hen
+        game.getCurrentTeam().getTeamPieces().add(newPiece); // Add piece to current teams array
+        toSpace.setPiece(newPiece); // Set piece to exist in random space
+    }
+
     public void performToolAction(Tool usedTool) {
         // Check if tool is usable
         if (validUseToolAction(usedTool)) {
             if (usedTool.getToolStrength() == Tool.STRENGTH.SILVER) {
+                if (usedTool.getToolType() == Tool.ITEM.HEN_EGG) {
+                    // Spawn one random hen for current team
+                    spawnRandomHen();
+                }
                 if (usedTool.getToolType() == Tool.ITEM.CLOAK) {
                     // Hide one of current team pieces
                     performHide(true, false, game.getCurrentTeam());
@@ -61,6 +72,11 @@ public class UseTool {
             }
 
             if (usedTool.getToolStrength() == Tool.STRENGTH.GOLD) {
+                if (usedTool.getToolType() == Tool.ITEM.HEN_EGG) {
+                    // Spawn 2 random hen eggs
+                    spawnRandomHen();
+                    spawnRandomHen();
+                }
                 if (usedTool.getToolType() == Tool.ITEM.GLASSES) {
                     // Unhide all opponent pieces
                     performHide(false, true, game.getOpponentTeam());
