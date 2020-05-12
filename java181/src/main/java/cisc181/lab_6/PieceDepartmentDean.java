@@ -16,8 +16,15 @@ public class PieceDepartmentDean extends PieceCanBunker implements Attacker, Bun
     }
 
     public boolean validPath(int rowI, int colI, int row, int col) {
-        boolean valid;
+        if(rowI == row){
+            return colI != col;
+        }
 
+        if(colI == col){
+            return rowI != row;
+        }
+
+        return false;
 
     }
 
