@@ -15,11 +15,12 @@ public class PlayGameH {
         System.out.println(" Type 'M' to move");
         System.out.println(" Type 'R' to recruit");
         System.out.println(" Type 'A' to attack");
+        System.out.println(" Type 'B' to bunker");
         System.out.println(" Type 'T' to use a Tool");
         System.out.print("ENTER: ");
         char userInput = sc.nextLine().charAt(0);
         while (acceptableInput==false){
-            if (userInput == 'A' || userInput == 'R' || userInput == 'M' || userInput == 'T'){
+            if (userInput == 'A' || userInput == 'R' || userInput == 'M' || userInput == 'T' || userInput == 'B'){
                 acceptableInput = true;
             }
             else {
@@ -169,6 +170,10 @@ public class PlayGameH {
         acceptableInput = false;
         while (!acceptableInput) {
             switch (tType) {
+                case "HEN_EGG":
+                    toolI = Tool.ITEM.HEN_EGG;
+                    acceptableInput = true;
+                    break;
                 case "COIN":
                     toolI = Tool.ITEM.COIN;
                     acceptableInput = true;
@@ -200,8 +205,7 @@ public class PlayGameH {
 
 
 
-    private void nextPlayersAction(){
-        Scanner sc = new Scanner(System.in);
+    private void nextPlayersAction(Scanner sc){
         boolean acceptable = false;
         while (acceptable == false){
             char action = getValidActionType(sc);
@@ -210,7 +214,7 @@ public class PlayGameH {
                 System.out.println("Enter row and column of current piece ");
                 int fromRow = sc.nextInt();
                 int fromCol = sc.nextInt();
-                System.out.println("Enter row and column you would like to perform the action on");
+                System.out.println("Enter row and column you would like to perform the action on (ignore for bunker)");
                 int actionRow = sc.nextInt();
                 int actionCol = sc.nextInt();
                 if (action == 'A') {
@@ -234,6 +238,14 @@ public class PlayGameH {
                     ActionRecruit recruit = new ActionRecruit(game181H, fromRow, fromCol, actionRow, actionCol);
                     if (recruit.validAction()) {
                         recruit.performAction();
+                        acceptable = true;
+                    } else {
+                        System.out.println("Action not valid");
+                    }
+                } else if (action == 'B') {
+                    ActionBunker bunker = new ActionBunker(game181H, fromRow, fromCol, actionRow, actionCol);
+                    if (bunker.validAction()) {
+                        bunker.performAction();
                         acceptable = true;
                     } else {
                         System.out.println("Action not valid");
@@ -277,18 +289,19 @@ public class PlayGameH {
         }
     }
 
-    public void playOurGame() {
-        nextPlayersAction();
+    public void playOurGame(Scanner sc) {
+        nextPlayersAction(sc);
         System.out.println(game181H);
         while (game181H.isGameEnded() == false) {
-            nextPlayersAction();
+            nextPlayersAction(sc);
             System.out.println(game181H);
         }
         System.out.println(game181H.getWinner());
     }
 
     public static void main(String[] args) {
-
+        // Scanner
+        Scanner sc = new Scanner(System.in);
         // Create 3 pieces for Team A
         Piece nemoA = new PieceSharkBait("Nemo","Red");
         Piece blueHenA = new PieceBlueHen("Hen ","Red",0,0);
@@ -322,7 +335,7 @@ public class PlayGameH {
         System.out.println(ourGame.getBoard().toString());
         // Create PlayGame object and play the game
         PlayGameH play = new PlayGameH(ourGame);
-        play.playOurGame();
+        play.playOurGame(sc);
 
     }
 }
