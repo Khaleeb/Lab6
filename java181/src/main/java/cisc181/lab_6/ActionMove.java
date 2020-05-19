@@ -7,6 +7,15 @@ public class ActionMove extends Action {
     }
     //checks that the action is valid
     public boolean validAction(){
+        Piece fromPiece = game.getBoard().getSpaces()
+                [fromSpaceRow][fromSpaceCol].getPiece();
+
+        if(fromPiece instanceof PieceDepartmentDean){
+            if(((PieceDepartmentDean) fromPiece).isBunkered){
+                return false;
+            }
+        }
+
         if(fromSpaceValid() == true && toSpaceValid(true) == true && validActionPath() == true) {
             return true;
         }

@@ -15,6 +15,19 @@ public class ActionAttack extends Action {
             // get the piece that is in the from BoardSpace
             Piece fromPiece = game.getBoard().getSpaces()
                     [fromSpaceRow][fromSpaceCol].getPiece();
+            Piece toPiece = game.getBoard().getSpaces()
+                    [toSpaceRow][toSpaceCol].getPiece();
+
+            if(toPiece instanceof PieceDepartmentDean){
+                if(((PieceDepartmentDean) toPiece).isBunkered){
+                    return false;
+                }
+            }
+            if(fromPiece instanceof PieceDepartmentDean){
+                if(((PieceDepartmentDean) fromPiece).isBunkered){
+                    return false;
+                }
+            }
             // check to see if this piece has implemented the Attacker interface
             if (Attacker.class.isAssignableFrom(fromPiece.getClass())) {
                 // if to space is valid - should NOT be empty so pass false to the method

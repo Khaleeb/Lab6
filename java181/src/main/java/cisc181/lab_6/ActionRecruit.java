@@ -15,11 +15,24 @@ public class ActionRecruit extends Action {
             // get the piece that is in the from BoardSpace
             Piece fromPiece = game.getBoard().getSpaces()
                     [fromSpaceRow][fromSpaceCol].getPiece();
+            Piece toPiece = game.getBoard().getSpaces()
+                    [toSpaceRow][toSpaceCol].getPiece();
+
+            if(toPiece instanceof PieceDepartmentDean){
+                if(((PieceDepartmentDean) toPiece).isBunkered){
+                    return false;
+                }
+            }
+            if(fromPiece instanceof PieceDepartmentDean){
+                if(((PieceDepartmentDean) fromPiece).isBunkered){
+                    return false;
+                }
+            }
             // check to see if this piece has implemented the Recruiter interface
             if (Recruiter.class.isAssignableFrom(fromPiece.getClass())) {
                 // if to space valid - should NOT be empty so pass a value of false to the toSpaceValid method
                 if (toSpaceValid(false)) {
-                    return validActionPath();
+                    return validActionPath() && (fromPiece.getColor() != toPiece.getColor());
                 }
             } else {
                 System.out.println("The piece on first space can't recruit.");
