@@ -2,21 +2,26 @@ package cisc181.lab_6;
 
 public class Tool {
 
+    // Tool type
     public enum ITEM {CLOAK, GLASSES, COIN, HEN_EGG}
+    // Tool Strength
     public enum STRENGTH {GOLD, SILVER}
 
     private ITEM toolType;
     private STRENGTH toolStrength;
 
+    // Constructor
     public Tool(ITEM toolType, STRENGTH toolStrength) {
         this.toolType = toolType;
         this.toolStrength = toolStrength;
     }
 
+    // Returns tool type
     public ITEM getToolType() {
         return toolType;
     }
 
+    // Returns tool strength
     public STRENGTH getToolStrength() {
         return toolStrength;
     }
