@@ -53,9 +53,13 @@ public abstract class GameH {
         return team.getTeamName().equals(turn);
     }
     public void changeTurn() {
+        if(this.getBoard().getSpaces()[0][0].getPiece() != null){
+            Piece temp = this.getBoard().getSpaces()[0][0].getPiece();
+            this.getBoard().getSpaces()[0][0].removePiece();
+            this.getBoard().findRandomEmptySpace().setPiece(temp);
+        }
         this.turn = getOpponentTeam().getTeamName();
     }
-
     public abstract boolean isAWinner();
     public abstract TeamH getWinner();
     public abstract boolean isGameEnded();
