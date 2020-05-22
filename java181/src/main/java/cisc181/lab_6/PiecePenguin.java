@@ -32,11 +32,11 @@ public class PiecePenguin extends PieceEggLaying implements Attacker,Recruiter{
         // compute the difference between from columns and to column
         int diffCols = Math.abs(firstSpaceCol - secondSpaceCol);
         // Slide - piece can move left or right (one or more spaces) and NOT up and down
-        if (diffRows == 0 && diffCols != 0){
+        if ((diffRows == 0) && (diffCols != 0)){
             valid = true;
         }
         // Or it can move one space up or down the board
-        else if (diffRows == 1 && diffCols == 0){
+        else if ((diffRows == 1) && (diffCols == 0)){
             valid = true;
         }
         else{
@@ -52,7 +52,7 @@ public class PiecePenguin extends PieceEggLaying implements Attacker,Recruiter{
     */
 
     public void attack(int firstSpaceRow, int firstSpaceCol,
-                        int secondSpaceRow, int secondSpaceCol){
+                       int secondSpaceRow, int secondSpaceCol){
         this.incrementNumAttacked();
         speak();
     }

@@ -17,7 +17,7 @@ public class PieceHeadDean extends Piece implements Recruiter {
 
     // L-Shape Path
     public boolean validPath(int rowI, int colI, int row, int col) {
-        return ((Math.abs(row - rowI) == 2 && Math.abs(col - colI) == 1) || (Math.abs(row - rowI) == 1 && Math.abs(col - colI) == 2));
+        return (((Math.abs(row - rowI) == 2) && (Math.abs(col - colI) == 1)) || ((Math.abs(row - rowI) == 1) && (Math.abs(col - colI) == 2)));
     }
 
     // Recruiter method

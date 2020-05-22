@@ -1,6 +1,7 @@
 package cisc181.lab_6;
 import java.util.*;
 
+
 public class PlayGameH {
     private Game181H game181H;
 
@@ -18,14 +19,23 @@ public class PlayGameH {
         System.out.println(" Type 'B' to bunker");
         System.out.println(" Type 'T' to use a Tool");
         System.out.print("ENTER: ");
-        char userInput = sc.nextLine().charAt(0);
+        String input = sc.nextLine(); // Due to some quirkiness with ide's this just skips sometimes???
+        char userInput;
+        if(input.length() >= 1){userInput = input.charAt(0);}else{ // Safety for when it skips
+            userInput = '\23';
+        }
         while (acceptableInput==false){
             if (userInput == 'A' || userInput == 'R' || userInput == 'M' || userInput == 'T' || userInput == 'B'){
                 acceptableInput = true;
             }
             else {
-                System.out.println("Not valid input");
-                userInput = sc.nextLine().charAt(0);
+                if(userInput != '\23') {
+                    System.out.println("Not valid input");
+                }
+                input = sc.nextLine();
+                if(input.length() >= 1){userInput = input.charAt(0);}else{
+                    userInput = 'f';
+                }
             }
         }
         return userInput;
@@ -217,6 +227,7 @@ public class PlayGameH {
                 System.out.println("Enter row and column you would like to perform the action on (ignore for bunker)");
                 int actionRow = sc.nextInt();
                 int actionCol = sc.nextInt();
+                System.out.println(fromRow + " " +fromCol + " " +actionRow + " " +actionCol + " " +action);
                 if (action == 'A') {
                     ActionAttack attack = new ActionAttack(game181H, fromRow, fromCol, actionRow, actionCol);
                     if (attack.validAction()) {
@@ -282,7 +293,7 @@ public class PlayGameH {
                         System.out.println("Action not valid");
                     }
                 }
-                
+
             } else {
                 System.out.println("Action not valid");
             }
@@ -296,40 +307,34 @@ public class PlayGameH {
             nextPlayersAction(sc);
             System.out.println(game181H);
         }
-        System.out.println(game181H.getWinner());
+        System.out.println("Winning team is : " + game181H.getWinner());
     }
 
     public static void main(String[] args) {
         // Scanner
         Scanner sc = new Scanner(System.in);
-        // Create 3 pieces for Team A
-        Piece nemoA = new PieceSharkBait("Nemo","Red");
-        Piece blueHenA = new PieceBlueHen("Hen ","Red",0,0);
-        Piece penguinA = new PiecePenguin("Peng","Red",0,0);
 
-        // Create an array list to hold Team A's pieces
+        // Create Array for teams
         ArrayList<Piece> piecesTeamA = new ArrayList<>();
-        piecesTeamA.add(nemoA);
-        piecesTeamA.add(blueHenA);
-        piecesTeamA.add(penguinA);
-
-        // Create 3 pieces for Team B
-        Piece nemoB = new PieceSharkBait("Nemo","Green");
-        Piece blueHenB = new PieceBlueHen("Hen ","Green",0,0);
-        Piece penguinB = new PiecePenguin("Peng","Green",0,0);
-
-        // Create an array list to hold Team B's pieces
         ArrayList<Piece> piecesTeamB = new ArrayList<>();
-        piecesTeamB.add(nemoB);
-        piecesTeamB.add(blueHenB);
-        piecesTeamB.add(penguinB);
+
+        // Setup Teams
+        String A_color = "Red";
+
+        setupTeam("A",piecesTeamA, sc,A_color);
+
+        System.out.println("Selection Done");
+
+        String B_color = "Green";
+
+        setupTeam("B",piecesTeamB, sc,B_color);
 
         // Create TeamA and TeamB objects and pass them the array lists of pieces
         TeamH teamA = new TeamH("A", "Red",piecesTeamA);
         TeamH teamB = new TeamH("B",  "Green",piecesTeamB);
 
         // Create an instance of the game
-        Game181H ourGame = new Game181H(4, 4,teamA, teamB);
+        Game181H ourGame = new Game181H(7, 7,teamA, teamB);
 
         // Print Board at start of game
         System.out.println(ourGame.getBoard().toString());
@@ -337,5 +342,40 @@ public class PlayGameH {
         PlayGameH play = new PlayGameH(ourGame);
         play.playOurGame(sc);
 
+    }
+
+    public static void setupTeam(String teamAB, ArrayList Team, Scanner sc,String color){
+        // Get team color
+        System.out.println("Team Setup for team " + teamAB);
+        // Start setting up piece selection
+        int points = 12;
+        Team.add(new PieceHeadDean("Dean",color));
+        int input;
+        while(points > 0){
+            System.out.println("You have " + points + " points, select a piece to add to your team.");
+            System.out.println("1. Shark Bait (1)");
+            System.out.println("2. Penguin (2)");
+            System.out.println("3. Blue Hen (3)");
+            System.out.println("4. Department Dean (4)");
+            System.out.print("Select: ");
+            while(!sc.hasNextLine()){}
+            input = sc.nextInt();
+            if(input == 1){
+                Team.add(new PieceSharkBait("Bait",color));
+                points -= 1;
+            }else if((input == 2) && (points >= 2)){
+                Team.add(new PiecePenguin("Peng",color,0,0));
+                points -= 2;
+            }else if((input == 3) && (points >= 3)){
+                Team.add(new PieceBlueHen("BHen",color,0,0));
+                points -= 3;
+            }else if((input == 4) && (points >= 4)){
+                Team.add(new PieceDepartmentDean("Dept",color));
+                points -= 4;
+            }
+        }
+
+
+        return;
     }
 }

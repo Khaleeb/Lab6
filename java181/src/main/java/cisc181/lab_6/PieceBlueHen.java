@@ -54,11 +54,11 @@ public class PieceBlueHen extends PieceEggLaying implements Attacker{
         // compute the difference between from columns and to column
         int diffCols = Math.abs(firstSpaceCol - secondSpaceCol);
         // move left or right one space
-        if (diffRows == 0 && diffCols == 1){
+        if ((diffRows == 0) && (diffCols == 1)){
             valid = true;
         }
         // Or it can move one space up or down the board
-        else if (diffRows == 1 && diffCols == 0){
+        else if ((diffRows == 1) && (diffCols == 0)){
             valid = true;
         }
         else if (fly){
@@ -78,7 +78,7 @@ public class PieceBlueHen extends PieceEggLaying implements Attacker{
     */
 
     public void attack(int firstSpaceRow, int firstSpaceCol,
-                        int secondSpaceRow, int secondSpaceCol){
+                       int secondSpaceRow, int secondSpaceCol){
         this.incrementNumAttacked();
         speak();
     }

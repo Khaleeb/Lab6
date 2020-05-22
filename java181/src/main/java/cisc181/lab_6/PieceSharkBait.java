@@ -1,5 +1,4 @@
 package cisc181.lab_6;
-
 public class PieceSharkBait extends Piece implements Recruiter{
 
     public PieceSharkBait(String symbol, String color) {
@@ -29,7 +28,7 @@ public class PieceSharkBait extends Piece implements Recruiter{
         // compute the difference between from columns and to column
         int diffCols = Math.abs(firstSpaceCol - secondSpaceCol);
         // piece can move diagonally 2 spaces (2 to left or right and 2 up or down)
-        if (diffRows == 2 && diffCols == 2){
+        if ((diffRows == 2) && (diffCols == 2)){
             valid = true;
         }
         else{
@@ -39,7 +38,7 @@ public class PieceSharkBait extends Piece implements Recruiter{
     }
 
     public void recruit(int firstSpaceRow, int firstSpaceCol,
-                         int secondSpaceRow, int secondSpaceCol){
+                        int secondSpaceRow, int secondSpaceCol){
         speak();
 
     }
